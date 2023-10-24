@@ -39,7 +39,7 @@ public class App {
 
         System.out.println("*******************************************");
 
-        student = repo.findStudent(student2.getId());
+        student = repo.findStudentById(student.getId());
 
         System.out.println("Found student by id: " + student.toString());
 
@@ -58,6 +58,7 @@ public class App {
         System.out.println("*******************************************");
 
         student.setName("Lorito");
+        student.setLastName("El Maicero");
 
         repo.updateStudent(student);
 
@@ -65,9 +66,27 @@ public class App {
 
         System.out.println("*******************************************");
 
+        student = repo.updateNameById("Paquito", student.getId());
+
+        System.out.println("Updated Student (NAME UPDATED): " + student);
+
+        System.out.println("*******************************************");
+
+        student = repo.updateLastNameById("El Chocolatero", student.getId());
+
+        System.out.println("Updated Student (LAST NAME UPDATED): " + student);
+
+        System.out.println("*******************************************");
+
         repo.deleteStudent(student);
 
         System.out.println("Removed Student: " + student);
+
+        System.out.println("*******************************************");
+
+        repo.deleteStudentById(student2.getId());
+
+        System.out.println("Removed Student by ID: " + student2);
 
         System.out.println("**************   END   **************");
 

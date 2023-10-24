@@ -58,7 +58,7 @@ public class StudentRepository {
     }
 
     /**
-     * EXTRA METHODS WITH JPQL
+     * JPQL (Java Persistence Query Language)
      */
 
     public List<String> findAllNames(){
@@ -78,7 +78,7 @@ public class StudentRepository {
     }
 
     /**
-     * EXTRA METHODS WITH NAMED QUERIES
+     * NAMED QUERIES
      */
 
     public Student findStudentById(Long id){
@@ -88,9 +88,41 @@ public class StudentRepository {
     }
 
     /**
-     * EXTRA METHODS FOR UPDATE ENTITIES
+     * UPDATING ENTITIES
      */
 
+    public Student updateNameById(String name, Long id){
+        em.getTransaction().begin();
+        Query query = em.createQuery("UPDATE Student SET name = '"+ name +"' WHERE id = " + id);
+        query.executeUpdate();
+        em.getTransaction().commit();
+        em.clear();
+        return  findStudentById(id);
+    }
+
+    public Student updateLastNameById(String lastname, Long id){
+        em.getTransaction().begin();
+        Query query = em.createQuery("UPDATE Student SET lastName = '"+ lastname +"' WHERE id = " + id);
+        query.executeUpdate();
+        em.getTransaction().commit();
+        em.clear();
+        return  findStudentById(id);
+    }
+
+    /**
+     * DELETING ENTITIES
+     */
+
+    public void deleteStudentById(Long id){
+        em.getTransaction().begin();
+        Query query = em.createQuery("DELETE FROM Student WHERE id = " + id);
+        query.executeUpdate();
+        em.getTransaction().commit();
+    }
+
+    /**
+     * FILTERING ENTITIES
+     */
 
 
 }
