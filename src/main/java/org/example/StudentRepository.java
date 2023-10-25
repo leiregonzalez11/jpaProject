@@ -124,5 +124,29 @@ public class StudentRepository {
      * FILTERING ENTITIES
      */
 
+    public List<Student> findByFirstNameStarWith (String keyword){
+        Query query = em.createQuery("SELECT s FROM Student s WHERE s.name LIKE '" + keyword + "%'");
+        return query.getResultList();
+    }
+
+    public Long count(){
+        Query query = em.createQuery("SELECT COUNT(s) FROM Student s");
+        return (Long) query.getSingleResult();
+    }
+
+    /**
+     * SORTING ENTITIES
+     */
+
+    public List<Student> findSortingByFirstName(){
+        Query query = em.createQuery("SELECT s FROM Student s ORDER BY s.name");
+        return query.getResultList();
+    }
+
+    public List<Student> findSortingByLastName(){
+        Query query = em.createQuery("SELECT s FROM Student s ORDER BY s.lastName DESC");
+        return query.getResultList();
+    }
+
 
 }
