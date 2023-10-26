@@ -2,8 +2,6 @@ package org.example;
 
 import org.example.model.Student;
 
-import java.util.List;
-
 /**ALl CRUD/PERSISTENCE operations**/
 public class App {
 
@@ -134,11 +132,15 @@ public class App {
 
         System.out.println("Removed Student by ID: " + student2);
 
-        System.out.println("**************   END   **************");
-
         System.out.println("Number of students in database: " + repo.count());
 
         System.out.println("*******************************************");
+
+        repo.deleteAllStudents();
+
+        System.out.println("Number of students in database: " + repo.count());
+
+        System.out.println("**************   END   **************");
 
         repo.close();
 

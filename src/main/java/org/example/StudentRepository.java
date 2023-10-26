@@ -117,6 +117,15 @@ public class StudentRepository {
         em.getTransaction().begin();
         Query query = em.createQuery("DELETE FROM Student WHERE id = " + id);
         query.executeUpdate();
+        em.clear();
+        em.getTransaction().commit();
+    }
+
+    public void deleteAllStudents(){
+        em.getTransaction().begin();
+        Query query = em.createQuery("DELETE FROM Student");
+        query.executeUpdate();
+        em.clear();
         em.getTransaction().commit();
     }
 
