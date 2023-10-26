@@ -1,5 +1,6 @@
-package org.example;
+package org.example.Repositories;
 
+import org.example.model.School;
 import org.example.model.Student;
 
 import javax.persistence.EntityManager;
@@ -9,12 +10,16 @@ import javax.persistence.Query;
 import java.util.List;
 
 /**Controlador lógico de Student:
- *  Concentra los métodos CRUD/persistentes en una única clase.
+ *     Concentra los métodos CRUD/persistentes en una única clase.
  * **/
 public class StudentRepository {
 
     private final EntityManager em;
     private final EntityManagerFactory emf;
+
+    /**
+     * Constructors
+     * */
 
     public StudentRepository() {
         emf = Persistence.createEntityManagerFactory("student_pu");
@@ -155,6 +160,18 @@ public class StudentRepository {
     public List<Student> findSortingByLastName(){
         Query query = em.createQuery("SELECT s FROM Student s ORDER BY s.lastName DESC");
         return query.getResultList();
+    }
+
+    /**
+     * ONE-TO-ONE RELATIONSHIP METHODS
+     */
+
+    public Student addSchoolToStudent(Long id, School school){
+        em.getTransaction().begin();
+        Student st = findStudent(id);
+        st.setSchool(school);
+        em.getTransaction().commit();
+        return st;
     }
 
 

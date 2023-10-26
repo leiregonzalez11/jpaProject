@@ -1,5 +1,8 @@
 package org.example;
 
+import org.example.Repositories.SchoolRepository;
+import org.example.Repositories.StudentRepository;
+import org.example.model.School;
 import org.example.model.Student;
 
 /**ALl CRUD/PERSISTENCE operations**/
@@ -7,15 +10,16 @@ public class App {
 
     public static void main( String[] args ) {
 
+        StudentRepository repoSt = new StudentRepository();
+        SchoolRepository repoSc = new SchoolRepository();
+
         System.out.println("**************   START   **************");
 
         Student student = new Student();
         student.setName("Paquito");
         student.setLastName("El Chocolatero");
 
-        StudentRepository repo = new StudentRepository();
-
-        repo.addStudent(student);
+        repoSt.addStudent(student);
 
         System.out.println("Added student: " + student);
 
@@ -25,7 +29,7 @@ public class App {
         student2.setName("Ginés");
         student2.setLastName("El de los bocadillos");
 
-        repo.addStudent(student2);
+        repoSt.addStudent(student2);
 
         System.out.println("Added student: " + student2);
 
@@ -35,7 +39,7 @@ public class App {
         student3.setName("García");
         student3.setLastName("Agente especial");
 
-        repo.addStudent(student3);
+        repoSt.addStudent(student3);
 
         System.out.println("Added student: " + student3);
 
@@ -45,23 +49,37 @@ public class App {
         student4.setName("Lorenzo");
         student4.setLastName("Que sale el sol");
 
-        repo.addStudent(student4);
+        repoSt.addStudent(student4);
 
         System.out.println("Added student: " + student4);
 
         System.out.println("*******************************************");
 
-        System.out.println("Number of students in database: " + repo.count());
+        System.out.println("Number of students in database: " + repoSt.count());
 
         System.out.println("*******************************************");
 
-        student = repo.findStudent(student.getId());
+        School school = new School("IES Arbolada", "Bilbao");
+
+        repoSc.addSchool(school);
+
+        System.out.println("Added school: " + school);
+
+        System.out.println("*******************************************");
+
+        repoSt.addSchoolToStudent(student.getId(), school);
+
+        System.out.println("Student new info, with school added: " + student);
+
+        System.out.println("*******************************************");
+
+        student = repoSt.findStudent(student.getId());
 
         System.out.println("Found student: " + student.toString());
 
         System.out.println("*******************************************");
 
-        student = repo.findStudentById(student.getId());
+        student = repoSt.findStudentById(student.getId());
 
         System.out.println("Found student by id: " + student.toString());
 
@@ -69,80 +87,80 @@ public class App {
 
         System.out.println("Found student's names: ");
 
-        repo.findAllNames().forEach(System.out::println);
+        repoSt.findAllNames().forEach(System.out::println);
 
         System.out.println("*******************************************");
 
         System.out.println("Found student's last names: ");
 
-        repo.findAllLastNames().forEach(System.out::println);
+        repoSt.findAllLastNames().forEach(System.out::println);
 
         System.out.println("*******************************************");
 
         System.out.println("Found student's name which stars with G: ");
 
-        repo.findByFirstNameStarWith("G").forEach(System.out::println);
+        repoSt.findByFirstNameStarWith("G").forEach(System.out::println);
 
         System.out.println("*******************************************");
 
         System.out.println("Found students order by name ASC: ");
 
-        repo.findSortingByFirstName().forEach(System.out::println);
+        repoSt.findSortingByFirstName().forEach(System.out::println);
 
         System.out.println("*******************************************");
 
         System.out.println("Found students order by last name DESC: ");
 
-        repo.findSortingByLastName().forEach(System.out::println);
+        repoSt.findSortingByLastName().forEach(System.out::println);
 
         System.out.println("*******************************************");
 
         student.setName("Lorito");
         student.setLastName("El Maicero");
 
-        repo.updateStudent(student);
+        repoSt.updateStudent(student);
 
         System.out.println("Updated Student: " + student);
 
         System.out.println("*******************************************");
 
-        student = repo.updateNameById("Paquito", student.getId());
+        student = repoSt.updateNameById("Paquito", student.getId());
 
         System.out.println("Updated Student (NAME UPDATED): " + student);
 
         System.out.println("*******************************************");
 
-        student = repo.updateLastNameById("El Chocolatero", student.getId());
+        student = repoSt.updateLastNameById("El Chocolatero", student.getId());
 
         System.out.println("Updated Student (LAST NAME UPDATED): " + student);
 
         System.out.println("*******************************************");
 
-        repo.deleteStudent(student);
+        repoSt.deleteStudent(student);
 
         System.out.println("Removed Student: " + student);
 
         System.out.println("*******************************************");
 
-        System.out.println("Number of students in database: " + repo.count());
+        System.out.println("Number of students in database: " + repoSt.count());
 
         System.out.println("*******************************************");
 
-        repo.deleteStudentById(student2.getId());
+        repoSt.deleteStudentById(student2.getId());
 
         System.out.println("Removed Student by ID: " + student2);
 
-        System.out.println("Number of students in database: " + repo.count());
+        System.out.println("Number of students in database: " + repoSt.count());
 
-        System.out.println("*******************************************");
+        //System.out.println("*******************************************");
 
-        repo.deleteAllStudents();
+        //repoSt.deleteAllStudents();
 
-        System.out.println("Number of students in database: " + repo.count());
+        //System.out.println("Number of students in database: " + repoSt.count());
 
         System.out.println("**************   END   **************");
 
-        repo.close();
+        repoSt.close();
 
     }
 }
