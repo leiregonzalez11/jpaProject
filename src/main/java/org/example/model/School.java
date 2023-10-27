@@ -1,6 +1,8 @@
 package org.example.model;
 
 import javax.persistence.*;
+import java.util.HashSet;
+import java.util.Set;
 
 @Entity
 public class School {
@@ -10,6 +12,10 @@ public class School {
     private Long id;
     private String name;
     private String city;
+
+    @OneToMany(targetEntity = Student.class)
+    private Set<Student> students = new HashSet<>();
+
 
     //Empty constructor
     public School() {
@@ -50,6 +56,15 @@ public class School {
                 "id=" + id +
                 ", name='" + name + '\'' +
                 ", city='" + city + '\'' +
+                ", students=" + students +
                 '}';
+    }
+
+    public Set<Student> getStudents() {
+        return students;
+    }
+
+    public void setStudents(Set<Student> students) {
+        this.students = students;
     }
 }

@@ -2,16 +2,24 @@ package org.example;
 
 import org.example.Repositories.SchoolRepository;
 import org.example.Repositories.StudentRepository;
+import org.example.Repositories.TutorRepository;
 import org.example.model.School;
 import org.example.model.Student;
+import org.example.model.Tutor;
 
-/**ALl CRUD/PERSISTENCE operations**/
+import java.util.LinkedList;
+import java.util.List;
+
+/**ALL CRUD/PERSISTENCE operations**/
 public class App {
 
     public static void main( String[] args ) {
 
         StudentRepository repoSt = new StudentRepository();
         SchoolRepository repoSc = new SchoolRepository();
+        TutorRepository repoT = new TutorRepository();
+
+        List<Student> stlist = new LinkedList<>();
 
         System.out.println("**************   START   **************");
 
@@ -20,6 +28,7 @@ public class App {
         student.setLastName("El Chocolatero");
 
         repoSt.addStudent(student);
+        stlist.add(student);
 
         System.out.println("Added student: " + student);
 
@@ -30,6 +39,7 @@ public class App {
         student2.setLastName("El de los bocadillos");
 
         repoSt.addStudent(student2);
+        stlist.add(student2);
 
         System.out.println("Added student: " + student2);
 
@@ -40,6 +50,7 @@ public class App {
         student3.setLastName("Agente especial");
 
         repoSt.addStudent(student3);
+        stlist.add(student3);
 
         System.out.println("Added student: " + student3);
 
@@ -50,6 +61,7 @@ public class App {
         student4.setLastName("Que sale el sol");
 
         repoSt.addStudent(student4);
+        stlist.add(student4);
 
         System.out.println("Added student: " + student4);
 
@@ -59,7 +71,23 @@ public class App {
 
         System.out.println("*******************************************");
 
-        School school = new School("IES Arbolada", "Bilbao");
+        Tutor tutor = new Tutor("Marcos", "Marquitos");
+
+        repoT.addTutor(tutor);
+
+        System.out.println("Added tutor: " + tutor);
+
+        System.out.println("*******************************************");
+
+        for (int i = 0; i <stlist.size(); i++){
+            student = stlist.get(i);
+            repoSt.addTutorToStudent(student.getId(), tutor);
+            System.out.println("Student new info, with tutor added: " + student);
+        }
+
+        System.out.println("*******************************************");
+
+        School school = new School("IESO Las Arenas", "Getxo");
 
         repoSc.addSchool(school);
 
@@ -67,9 +95,11 @@ public class App {
 
         System.out.println("*******************************************");
 
-        repoSt.addSchoolToStudent(student.getId(), school);
-
-        System.out.println("Student new info, with school added: " + student);
+        for (int i = 0; i <stlist.size(); i++){
+            student = stlist.get(i);
+            repoSc.addStudentToSchool(school.getId(), student);
+            System.out.println("School new info, with student added: " + school);
+        }
 
         System.out.println("*******************************************");
 
@@ -136,6 +166,14 @@ public class App {
 
         System.out.println("*******************************************");
 
+        repoSc.removeStudentFromSchool(school.getId(), student);
+
+        System.out.println("Removed Student from School: " + student);
+        System.out.println("School info updated: " + school);
+
+        System.out.println("*******************************************");
+
+        stlist.remove(student);
         repoSt.deleteStudent(student);
 
         System.out.println("Removed Student: " + student);

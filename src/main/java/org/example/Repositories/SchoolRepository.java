@@ -1,6 +1,7 @@
 package org.example.Repositories;
 
 import org.example.model.School;
+import org.example.model.Student;
 
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
@@ -55,7 +56,29 @@ public class SchoolRepository {
         this.em.close();
         this.emf.close();
     }
-    
-    
+
+    /**
+     * ONE-TO-MANY RELATIONSHIP METHODS
+     */
+
+    public void addStudentToSchool (Long id, Student student){
+        em.getTransaction().begin();
+        School school = findSchool(id);
+        if (school != null) {
+            school.getStudents().add(student);
+        }
+        em.persist(school);
+        em.getTransaction().commit();
+    }
+
+    public void removeStudentFromSchool (Long id, Student student){
+        em.getTransaction().begin();
+        School school = findSchool(id);
+        if (school != null) {
+            school.getStudents().remove(student);
+        }
+        em.remove(school);
+        em.getTransaction().commit();
+    }
     
 }

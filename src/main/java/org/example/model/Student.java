@@ -17,7 +17,7 @@ public class Student {
     private String lastName;
 
     @OneToOne
-    private School school;
+    private Tutor tutor;
 
     public Student() {
     }
@@ -70,15 +70,15 @@ public class Student {
                 "id=" + id +
                 ", name='" + name + '\'' +
                 ", lastName='" + lastName + '\'' +
-                ", school=" + school +
+                ", tutor=" + tutor +
                 '}';
     }
 
-    public School getSchool() {
-        return school;
+    public Tutor getTutor() {
+        return tutor;
     }
 
-    public void setSchool(School school) {
-        this.school = school;
+    public void setTutor(Tutor tutor) {
+        this.tutor = tutor;
     }
 }

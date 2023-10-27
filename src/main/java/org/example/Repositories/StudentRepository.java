@@ -2,6 +2,7 @@ package org.example.Repositories;
 
 import org.example.model.School;
 import org.example.model.Student;
+import org.example.model.Tutor;
 
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
@@ -98,7 +99,7 @@ public class StudentRepository {
 
     public Student updateNameById(String name, Long id){
         em.getTransaction().begin();
-        Query query = em.createQuery("UPDATE Student SET name = '"+ name +"' WHERE id = " + id);
+        Query query = em.createQuery("UPDATE Student SET name = '"+ name +"' WHERE id = " + id); //NamedNativeQuery
         query.executeUpdate();
         em.getTransaction().commit();
         em.clear();
@@ -166,13 +167,14 @@ public class StudentRepository {
      * ONE-TO-ONE RELATIONSHIP METHODS
      */
 
-    public Student addSchoolToStudent(Long id, School school){
+    public void addTutorToStudent(Long id, Tutor tutor){
         em.getTransaction().begin();
         Student st = findStudent(id);
-        st.setSchool(school);
+        st.setTutor(tutor);
         em.getTransaction().commit();
-        return st;
     }
+
+
 
 
 }
