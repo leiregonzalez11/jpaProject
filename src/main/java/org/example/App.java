@@ -2,9 +2,11 @@ package org.example;
 
 import org.example.Repositories.SchoolRepository;
 import org.example.Repositories.StudentRepository;
+import org.example.Repositories.TeacherRepository;
 import org.example.Repositories.TutorRepository;
 import org.example.model.School;
 import org.example.model.Student;
+import org.example.model.Teacher;
 import org.example.model.Tutor;
 
 import java.util.LinkedList;
@@ -18,6 +20,7 @@ public class App {
         StudentRepository repoSt = new StudentRepository();
         SchoolRepository repoSc = new SchoolRepository();
         TutorRepository repoT = new TutorRepository();
+        TeacherRepository repoTe = new TeacherRepository();
 
         List<Student> stlist = new LinkedList<>();
 
@@ -100,6 +103,26 @@ public class App {
             repoSc.addStudentToSchool(school.getId(), student);
             System.out.println("School new info, with student added: " + school);
         }
+
+        System.out.println("*******************************************");
+
+        Teacher teacher1 = new Teacher("Maricarmen", "Rodriguez");
+
+        teacher1.setSchool(school);
+
+        repoTe.addTeacher(teacher1);
+
+        System.out.println("Added teacher: " + teacher1);
+
+        System.out.println("*******************************************");
+
+        Teacher teacher2 = new Teacher("Maripili", "Gonzalez");
+
+        teacher2.setSchool(school);
+
+        repoTe.addTeacher(teacher2);
+
+        System.out.println("Added teacher: " + teacher2);
 
         System.out.println("*******************************************");
 
