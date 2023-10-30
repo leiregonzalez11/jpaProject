@@ -1,6 +1,5 @@
 package org.example.Repositories;
 
-import org.example.Repositories.StudentRepository;
 import org.example.model.Student;
 import org.junit.*;
 
