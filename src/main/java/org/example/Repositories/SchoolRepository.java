@@ -6,6 +6,7 @@ import org.example.model.Student;
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
 import javax.persistence.Persistence;
+import javax.persistence.Query;
 
 public class SchoolRepository {
 
@@ -80,5 +81,9 @@ public class SchoolRepository {
         em.remove(school);
         em.getTransaction().commit();
     }
-    
+
+    public Long count(){
+        Query query = em.createQuery("SELECT COUNT(s) FROM School s");
+        return (Long) query.getSingleResult();
+    }
 }

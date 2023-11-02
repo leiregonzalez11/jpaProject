@@ -16,7 +16,6 @@ public class School {
     @OneToMany(targetEntity = Student.class)
     private Set<Student> students = new HashSet<>();
 
-
     //Empty constructor
     public School() {
     }

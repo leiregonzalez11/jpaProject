@@ -13,7 +13,6 @@ public class Tutor {
     @Column(name = "lastName", nullable = false, length = 200)
     private String lastname;
 
-
     public Tutor() {
     }
 
