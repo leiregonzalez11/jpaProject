@@ -51,7 +51,6 @@ public class App {
 
     }
 
-
     private static void insercionDeDatosEnBBDD(){
 
         /*
@@ -201,6 +200,17 @@ public class App {
             System.out.println("Teacher info updated. " + sclist.get(random).getName() + " added to " + value.getName() + " " + value.getLastname());
             System.out.println("*******************************************");
         }
+
+        /* ****************************************************************************** */
+
+        /*
+         * Asignación de estudiantes NUEVOS a profesores (en la creación de TEACHER)
+         */
+
+        Teacher teacher = telist.get(0);
+
+        teacher.addStudent(new Student("Basilio", "El de los Cementos"));
+
 
         /* ****************************************************************************** */
 
