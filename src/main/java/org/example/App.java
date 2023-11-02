@@ -33,100 +33,17 @@ public class App {
 
         insercionDeDatosEnBBDD();
 
-        /*
+        /*Métodos de búsqueda de datos*/
 
-        student = repoSt.findStudent(student.getId());
+        metodosDeBusqueda();
 
-        System.out.println("Found student: " + student.toString());
+        /*Métodos de modificación de datos*/
 
-        System.out.println("*******************************************");
+        metodosDeModificacion();
 
-        student = repoSt.findStudentById(student.getId());
+        /*Métodos de eliminación de información*/
 
-        System.out.println("Found student by id: " + student.toString());
-
-        System.out.println("*******************************************");
-
-        System.out.println("Found student's names: ");
-
-        repoSt.findAllNames().forEach(System.out::println);
-
-        System.out.println("*******************************************");
-
-        System.out.println("Found student's last names: ");
-
-        repoSt.findAllLastNames().forEach(System.out::println);
-
-        System.out.println("*******************************************");
-
-        System.out.println("Found student's name which stars with G: ");
-
-        repoSt.findByFirstNameStarWith("G").forEach(System.out::println);
-
-        System.out.println("*******************************************");
-
-        System.out.println("Found students order by name ASC: ");
-
-        repoSt.findSortingByFirstName().forEach(System.out::println);
-
-        System.out.println("*******************************************");
-
-        System.out.println("Found students order by last name DESC: ");
-
-        repoSt.findSortingByLastName().forEach(System.out::println);
-
-        System.out.println("*******************************************");
-
-        student.setName("Lorito");
-        student.setLastName("El Maicero");
-
-        repoSt.updateStudent(student);
-
-        System.out.println("Updated Student: " + student);
-
-        System.out.println("*******************************************");
-
-        student = repoSt.updateNameById("Paquito", student.getId());
-
-        System.out.println("Updated Student (NAME UPDATED): " + student);
-
-        System.out.println("*******************************************");
-
-        student = repoSt.updateLastNameById("El Chocolatero", student.getId());
-
-        System.out.println("Updated Student (LAST NAME UPDATED): " + student);
-
-        System.out.println("*******************************************");
-
-        repoSc.removeStudentFromSchool(school.getId(), student);
-
-        System.out.println("Removed Student from School: " + student);
-        System.out.println("School info updated: " + school);
-
-        System.out.println("*******************************************");
-
-        stlist.remove(student);
-        repoSt.deleteStudent(student);
-
-        System.out.println("Removed Student: " + student);
-
-        System.out.println("*******************************************");
-
-        System.out.println("Number of students in database: " + repoSt.count());
-
-        System.out.println("*******************************************");
-
-        repoSt.deleteStudentById(student2.getId());
-
-        System.out.println("Removed Student by ID: " + student2);
-
-        System.out.println("Number of students in database: " + repoSt.count());
-
-        //System.out.println("*******************************************");
-
-        //repoSt.deleteAllStudents();
-
-        //System.out.println("Number of students in database: " + repoSt.count());*/
+        metodosDeEliminacion();
 
         System.out.println("**************   END   **************");
 
@@ -141,16 +58,10 @@ public class App {
          * Creación de los estudiantes
          */
 
-        Student student = new Student("Paquito", "El Chocolatero");
-        Student student2 = new Student("Ginés", "El de los bocadillos");
-        Student student3 = new Student("García", "Agente especial");
-        Student student4 = new Student("Lorenzo", "Que sale el sol");
-
-        //Lista con los estudiantes
-        stlist.add(student);
-        stlist.add(student2);
-        stlist.add(student3);
-        stlist.add(student4);
+        stlist.add(new Student("Paquito", "El Chocolatero"));
+        stlist.add(new Student("Ginés", "El de los bocadillos"));
+        stlist.add(new Student("García", "Agente especial"));
+        stlist.add(new Student("Lorenzo", "Que sale el sol"));
 
         /* ****************************************************************************** */
 
@@ -181,13 +92,9 @@ public class App {
          * Creación de los tutores
          */
 
-        Tutor tutor = new Tutor("Marcos", "Marquitos");
-        Tutor tutor2 = new Tutor("Pepe", "Pepito");
-        Tutor tutor3 = new Tutor("Lucas", "Luquitas");
-
-        tulist.add(tutor);
-        tulist.add(tutor2);
-        tulist.add(tutor3);
+        tulist.add(new Tutor("Marcos", "Marquitos"));
+        tulist.add(new Tutor("Pepe", "Pepito"));
+        tulist.add(new Tutor("Lucas", "Luquitas"));
 
         /* ****************************************************************************** */
 
@@ -232,11 +139,8 @@ public class App {
          * Creación de los colegios
          */
 
-        School school = new School("IESO GuauGuau", "Getxo");
-        School school2 = new School("IES PioPio", "Bilbao");
-
-        sclist.add(school);
-        sclist.add(school2);
+        sclist.add(new School("IESO GuauGuau", "Getxo"));
+        sclist.add(new School("IES PioPio", "Bilbao"));
 
         /* ****************************************************************************** */
 
@@ -281,11 +185,8 @@ public class App {
          * Creación de los profesores
          */
 
-        Teacher teacher1 = new Teacher("Maricarmen", "Rodriguez");
-        Teacher teacher2 = new Teacher("Maripili", "Gonzalez");
-
-        telist.add(teacher1);
-        telist.add(teacher2);
+        telist.add(new Teacher("Maricarmen", "Rodriguez"));
+        telist.add(new Teacher("Maripili", "Gonzalez"));
 
         /* ****************************************************************************** */
 
@@ -317,5 +218,190 @@ public class App {
         /* ****************************************************************************** */
 
     }
+
+    private static void metodosDeBusqueda(){
+
+        System.out.println("*******************************************");
+        System.out.println("Búsqueda de un estudiante cualquiera: ");
+
+        System.out.println("--------------------------------------------");
+
+        int random = (int) (Math.random() *stlist.size());
+        System.out.println("Found student: " + repoSt.findStudent(stlist.get(random).getId()));
+
+        System.out.println("*******************************************");
+
+        System.out.println("Búsqueda de un estudiante cualquiera usando Names Queries: ");
+
+        System.out.println("--------------------------------------------");
+
+        random = (int) (Math.random() *stlist.size());
+
+        System.out.println("Found student: " + repoSt.findStudentById(stlist.get(random).getId()));
+
+        System.out.println("*******************************************");
+
+        System.out.println("Búsqueda de los nombres de todos los estudiantes: ");
+
+        System.out.println("--------------------------------------------");
+
+        System.out.println("All student's names which have been found:");
+
+        //repoSt.findAllNames().forEach(System.out::println); --> Para imprimir todos los nombres seguidos, sin estilo.
+
+        int i = 1;
+
+        for (String name: repoSt.findAllNames()){
+            System.out.println("--- " + i + ") Student's name : " + name + " ----");
+            i++;
+        }
+
+        System.out.println("*******************************************");
+
+        System.out.println("Búsqueda de los nombres ordenados por nombre ASC: ");
+
+        System.out.println("--------------------------------------------");
+
+        System.out.println("All student's names which have been found order by name ASC:");
+
+        i = 1;
+
+        for (Student st: repoSt.findSortingByFirstName()){
+            System.out.println("--- " + i + ") Student : " + st.getName() + " " + st.getLastName() + " ----");
+            i++;
+        }
+
+        System.out.println("*******************************************");
+
+        System.out.println("Búsqueda de los apellidos de todos los estudiantes: ");
+
+        System.out.println("--------------------------------------------");
+
+        System.out.println("All student's last names which have been found:");
+
+        i = 1;
+
+        for (String lastname: repoSt.findAllLastNames()){
+            System.out.println("--- " + i + ") Student's last name : " + lastname + " ----");
+            i++;
+        }
+
+        System.out.println("*******************************************");
+
+        System.out.println("Búsqueda de los apellidos de todos los estudiantes ordenados por apellido DESC: ");
+
+        System.out.println("--------------------------------------------");
+
+        System.out.println("All student's last names which have been found order by last name DESC:");
+
+        i = 1;
+
+        for (Student st: repoSt.findSortingByLastName()){
+            System.out.println("--- " + i + ") Student : " + st.getName() + " " + st.getLastName() + " ----");
+            i++;
+        }
+
+        System.out.println("*******************************************");
+
+        System.out.println("Búsqueda de los estudiantes cuyo nombre empieza por G: ");
+
+        System.out.println("--------------------------------------------");
+
+        System.out.println("All student's names which start with G");
+
+        i = 1;
+
+        for (Student st: repoSt.findByFirstNameStarWith("G")){
+            System.out.println("--- " + i + ") Student : " + st.getName() + " " + st.getLastName() + " ----");
+            i++;
+        }
+
+        System.out.println("*******************************************");
+
+    }
+
+    private static void metodosDeModificacion(){
+
+        System.out.println("Modificación de un estudiante al azar: ");
+
+        System.out.println("--------------------------------------------");
+
+        //Se busca un estudiante al azar para realizar las modificaciones
+        int random = (int) (Math.random() *stlist.size());
+        Student student = repoSt.findStudent(stlist.get(random).getId());
+        System.out.println("*******************************************");
+        System.out.println("Found student: " + student);
+        System.out.println("*******************************************");
+
+        String primerNombre = student.getName();
+        String primerApellido = student.getLastName();
+
+        //Modificamos el nombre y apellido del estudiante
+        student.setName("Lorito");
+        student.setLastName("El Maicero");
+
+        repoSt.updateStudent(student);
+
+        System.out.println("*******************************************");
+
+        System.out.println("Updated student: " + student);
+
+        System.out.println("*******************************************");
+
+        //Modifición únicamente del nombre
+        student = repoSt.updateNameById(primerNombre, student.getId());
+
+        System.out.println("*******************************************");
+
+        System.out.println("Updated Student (NAME UPDATED): " + student);
+
+        System.out.println("*******************************************");
+
+        //Modifición únicamente del apellido
+
+        student = repoSt.updateLastNameById(primerApellido, student.getId());
+
+        System.out.println("*******************************************");
+
+        System.out.println("Updated Student (LAST NAME UPDATED): " + student);
+
+        System.out.println("*******************************************");
+
+    }
+
+    private static void metodosDeEliminacion(){
+
+        /*repoSc.removeStudentFromSchool(school.getId(), student);
+
+        System.out.println("Removed Student from School: " + student);
+        System.out.println("School info updated: " + school);
+
+        System.out.println("*******************************************");
+
+        stlist.remove(student);
+        repoSt.deleteStudent(student);
+
+        System.out.println("Removed Student: " + student);
+
+        System.out.println("*******************************************");
+
+        System.out.println("Number of students in database: " + repoSt.count());
+
+        System.out.println("*******************************************");
+
+        repoSt.deleteStudentById(student2.getId());
+
+        System.out.println("Removed Student by ID: " + student2);
+
+        System.out.println("Number of students in database: " + repoSt.count());
+
+        //System.out.println("*******************************************");
+
+        //repoSt.deleteAllStudents();
+
+        //System.out.println("Number of students in database: " + repoSt.count());*/
+
+    }
+
 }
 
