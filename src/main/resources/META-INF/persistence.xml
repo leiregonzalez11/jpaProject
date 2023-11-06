@@ -2,9 +2,11 @@
     <persistence-unit name="student_pu" transaction-type="RESOURCE_LOCAL">
         <provider>org.hibernate.jpa.HibernatePersistenceProvider</provider>
 
+        <class>org.example.model.Person</class>
         <class>org.example.model.Student</class>
         <class>org.example.model.School</class>
         <class>org.example.model.Tutor</class>
+
 
         <properties>
             <property name="javax.persistence.jdbc.url" value="jdbc:h2:tcp://localhost/~/test"/>

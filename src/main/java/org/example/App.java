@@ -197,7 +197,7 @@ public class App {
             int random = (int) (Math.random() *sclist.size());
             value.setSchool(sclist.get(random));
             System.out.println("*******************************************");
-            System.out.println("Teacher info updated. " + sclist.get(random).getName() + " added to " + value.getName() + " " + value.getLastname());
+            System.out.println("Teacher info updated. " + sclist.get(random).getName() + " added to " + value.getName() + " " + value.getLastName());
             System.out.println("*******************************************");
         }
 
@@ -374,6 +374,14 @@ public class App {
         System.out.println("*******************************************");
 
         System.out.println("Updated Student (LAST NAME UPDATED): " + student);
+
+        System.out.println("*******************************************");
+
+        System.out.println("Añadir más profesores a un estudiante: ");
+
+        System.out.println("--------------------------------------------");
+
+        //TODO
 
         System.out.println("*******************************************");
 

@@ -1,5 +1,6 @@
 package org.example.Repositories;
 
+import org.example.model.Student;
 import org.example.model.Teacher;
 
 import javax.persistence.EntityManager;
@@ -49,6 +50,14 @@ public class TeacherRepository {
         stUpdate.setName(teacher.getName());
         em.getTransaction().commit();
     }
+
+    /*public void updateTeacherStudents(Teacher teacher, Student student){
+        Teacher teUpdate = findTeacher(teacher.getId());
+        em.getTransaction().begin();
+        teUpdate.getStudents().add(student);
+        student.getTeachers().add(teUpdate);
+        em.getTransaction().commit();
+    }*/
 
     public void deleteTeacher(Teacher teacher){
         em.getTransaction().begin();
