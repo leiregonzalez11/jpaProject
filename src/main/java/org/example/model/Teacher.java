@@ -5,7 +5,6 @@ import java.util.HashSet;
 import java.util.Set;
 
 @Entity
-@PrimaryKeyJoinColumn(referencedColumnName = "id")
 public class Teacher extends Person {
 
     @ManyToOne
