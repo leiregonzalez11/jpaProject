@@ -13,6 +13,7 @@ import java.util.LinkedList;
 import java.util.List;
 
 /**ALL CRUD/PERSISTENCE operations**/
+@SuppressWarnings("DuplicatedCode")
 public class App {
 
     private static final StudentRepository repoSt = new StudentRepository();
@@ -43,7 +44,11 @@ public class App {
 
         /*Métodos de eliminación de información*/
 
-        metodosDeEliminacion();
+        System.out.println("Métodos de eliminación de datos: TO CORRECT");
+
+        System.out.println("--------------------------------------------");
+
+        //TODO metodosDeEliminacion();
 
         System.out.println("**************   END   **************");
 
@@ -317,11 +322,22 @@ public class App {
 
         System.out.println("--------------------------------------------");
 
-        System.out.println("All student's names which start with G");
-
         i = 1;
 
         for (Student st: repoSt.findByFirstNameStarWith("G")){
+            System.out.println("--- " + i + ") Student : " + st.getName() + " " + st.getLastName() + " ----");
+            i++;
+        }
+
+        System.out.println("*******************************************");
+
+        System.out.println("Búsqueda de estudiantes mediante Criteria API: ");
+
+        System.out.println("--------------------------------------------");
+
+        i = 1;
+
+        for (Student st: repoSt.getStudentWithCriteriaBuilder()){
             System.out.println("--- " + i + ") Student : " + st.getName() + " " + st.getLastName() + " ----");
             i++;
         }
@@ -377,7 +393,7 @@ public class App {
 
         System.out.println("*******************************************");
 
-        System.out.println("Añadir más profesores a un estudiante: ");
+        System.out.println("Añadir más profesores a un estudiante: TODO");
 
         System.out.println("--------------------------------------------");
 

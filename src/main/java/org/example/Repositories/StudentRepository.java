@@ -4,10 +4,10 @@ import org.example.model.School;
 import org.example.model.Student;
 import org.example.model.Tutor;
 
-import javax.persistence.EntityManager;
-import javax.persistence.EntityManagerFactory;
-import javax.persistence.Persistence;
-import javax.persistence.Query;
+import javax.persistence.*;
+import javax.persistence.criteria.CriteriaBuilder;
+import javax.persistence.criteria.CriteriaQuery;
+import javax.persistence.criteria.Root;
 import java.util.List;
 
 /**Controlador lógico de Student:
@@ -174,7 +174,24 @@ public class StudentRepository {
         em.getTransaction().commit();
     }
 
+    /**
+     * QUERIES WITHCRITERIA API
+     */
 
+    public List<Student> getStudentWithCriteriaBuilder(){
+        em.getTransaction().begin();
+        CriteriaBuilder criteriaBuilder = em.getCriteriaBuilder();
+        CriteriaQuery<Student> criteriaQuery = criteriaBuilder.createQuery(Student.class);
 
+        Root<Student> studentRoot = criteriaQuery.from(Student.class);
+
+        CriteriaQuery<Student> select = criteriaQuery.select(studentRoot);
+        TypedQuery<Student> query = em.createQuery(select);
+
+        em.getTransaction().commit();
+
+        return query.getResultList();
+
+    }
 
 }
