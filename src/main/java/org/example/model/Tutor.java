@@ -3,7 +3,7 @@ package org.example.model;
 import javax.persistence.*;
 
 @Entity
-@DiscriminatorValue(value = "TU")
+@PrimaryKeyJoinColumn(referencedColumnName = "id")
 public class Tutor extends Person {
 
     public Tutor() {

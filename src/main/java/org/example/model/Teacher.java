@@ -5,7 +5,7 @@ import java.util.HashSet;
 import java.util.Set;
 
 @Entity
-@DiscriminatorValue(value = "TE")
+@PrimaryKeyJoinColumn(referencedColumnName = "id")
 public class Teacher extends Person {
 
     @ManyToOne
