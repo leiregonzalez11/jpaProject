@@ -1,18 +1,17 @@
 package org.example.Repositories;
 
-import org.example.model.School;
 import org.example.model.Student;
 import org.example.model.Tutor;
 
 import javax.persistence.*;
-import javax.persistence.criteria.CriteriaBuilder;
-import javax.persistence.criteria.CriteriaQuery;
-import javax.persistence.criteria.Root;
+import javax.persistence.criteria.*;
+import java.util.Arrays;
 import java.util.List;
 
-/**Controlador lógico de Student:
+/** Controlador lógico de Student:
  *     Concentra los métodos CRUD/persistentes en una única clase.
  * **/
+@SuppressWarnings("DuplicatedCode")
 public class StudentRepository {
 
     private final EntityManager em;
@@ -175,7 +174,7 @@ public class StudentRepository {
     }
 
     /**
-     * QUERIES WITHCRITERIA API
+     * QUERIES WITH CRITERIA API
      */
 
     public List<Student> getStudentWithCriteriaBuilder(){
@@ -185,6 +184,8 @@ public class StudentRepository {
 
         Root<Student> studentRoot = criteriaQuery.from(Student.class);
 
+        criteriaQuery.select(studentRoot.get("name"));
+
         CriteriaQuery<Student> select = criteriaQuery.select(studentRoot);
         TypedQuery<Student> query = em.createQuery(select);
 
@@ -193,5 +194,78 @@ public class StudentRepository {
         return query.getResultList();
 
     }
+
+
+    public List<Student> getStudentWithCriteriaBuilderWithOrderBy(){
+
+        em.getTransaction().begin();
+        CriteriaBuilder criteriaBuilder = em.getCriteriaBuilder();
+        CriteriaQuery<Student> criteriaQuery = criteriaBuilder.createQuery(Student.class);
+
+        Root<Student> studentRoot = criteriaQuery.from(Student.class);
+
+        criteriaQuery.select(studentRoot.get("name"));
+        criteriaQuery.distinct(true);
+        criteriaQuery.orderBy(criteriaBuilder.asc(studentRoot.get("name")));
+
+        CriteriaQuery<Student> select = criteriaQuery.select(studentRoot);
+        TypedQuery<Student> query = em.createQuery(select);
+
+        em.getTransaction().commit();
+
+        return query.getResultList();
+
+    }
+
+    public List<Student> getStudentWithCriteriaBuilderWithWhere(){
+        em.getTransaction().begin();
+
+        CriteriaBuilder criteriaBuilder = em.getCriteriaBuilder();
+        CriteriaQuery<Student> criteriaQuery = criteriaBuilder.createQuery(Student.class);
+
+        Root<Student> studentRoot = criteriaQuery.from(Student.class);
+
+        List<String> namelist = Arrays.asList("Basilio", "Paquito");
+
+        Expression<String> exp = studentRoot.get("name");
+        Predicate in = exp.in(namelist);
+
+        criteriaQuery.where(in);
+
+        CriteriaQuery<Student> select = criteriaQuery.select(studentRoot);
+        TypedQuery<Student> query = em.createQuery(select);
+
+        em.getTransaction().commit();
+
+        return query.getResultList();
+
+    }
+
+    public List<Student> getStudentWithCriteriaBuilderWithGroupBy(){
+        em.getTransaction().begin();
+
+        CriteriaBuilder criteriaBuilder = em.getCriteriaBuilder();
+        CriteriaQuery<Student> criteriaQuery = criteriaBuilder.createQuery(Student.class);
+
+        Root<Student> studentRoot = criteriaQuery.from(Student.class);
+
+        List<String> namelist = Arrays.asList("Basilio", "Paquito");
+
+        Expression<String> exp = studentRoot.get("name");
+        Predicate in = exp.in(namelist);
+
+        criteriaQuery.where(in);
+        criteriaQuery.groupBy(studentRoot.get("lastName"));
+
+
+        CriteriaQuery<Student> select = criteriaQuery.select(studentRoot);
+        TypedQuery<Student> query = em.createQuery(select);
+
+        em.getTransaction().commit();
+
+        return query.getResultList();
+
+    }
+
 
 }

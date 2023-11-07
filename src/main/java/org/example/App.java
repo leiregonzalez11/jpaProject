@@ -344,6 +344,45 @@ public class App {
 
         System.out.println("*******************************************");
 
+        System.out.println("Búsqueda de estudiantes mediante Criteria API --> SELECT CON ORDER BY ASC SOBRE NAME: ");
+
+        System.out.println("--------------------------------------------");
+
+        i = 1;
+
+        for (Student st: repoSt.getStudentWithCriteriaBuilderWithOrderBy()){
+            System.out.println("--- " + i + ") Student : " + st.getName() + " " + st.getLastName() + " ----");
+            i++;
+        }
+
+        System.out.println("*******************************************");
+
+        System.out.println("Búsqueda de estudiantes mediante Criteria API --> SELECT CON CLAUSULA WHERE: ");
+
+        System.out.println("--------------------------------------------");
+
+        i = 1;
+
+        for (Student st: repoSt.getStudentWithCriteriaBuilderWithWhere()){
+            System.out.println("--- " + i + ") Student : " + st.getName() + " " + st.getLastName() + " ----");
+            i++;
+        }
+
+        System.out.println("*******************************************");
+
+        System.out.println("Búsqueda de estudiantes mediante Criteria API --> SELECT CON CLAUSULA GROUP BY: ");
+
+        System.out.println("--------------------------------------------");
+
+        i = 1;
+
+        for (Student st: repoSt.getStudentWithCriteriaBuilderWithGroupBy()){
+            System.out.println("--- " + i + ") Student : " + st.getName() + " " + st.getLastName() + " ----");
+            i++;
+        }
+
+        System.out.println("*******************************************");
+
     }
 
     private static void metodosDeModificacion(){
